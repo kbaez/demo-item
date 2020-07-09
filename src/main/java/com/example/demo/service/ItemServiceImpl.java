@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,10 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public Item findById(Long id, Integer cantidad) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String> pathVariables = new HashMap<String, String>();
+		pathVariables.put("id", id.toString());
+		Producto producto = clientRest.getForObject("http://localhost:8081/ver/{id}", Producto.class, pathVariables);
+		return new Item(producto, cantidad);
 	}
 
 }
